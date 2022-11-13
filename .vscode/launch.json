@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Collect A-B-D-U-L and A-1000-Days-Gone lyrics",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["--artists", "A-B-D-U-L", "A-1000-Days-Gone", "--data_collector_type", "LYRICS_COM_DATA_COLLECTOR", "--data_storage_type", "DATA_STORAGE_CSV", "--data_storage_config", "data_dir,data3 "],
+            "console": "integratedTerminal"
+        },
+		{
+            "name": "Python: Default data folder",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["--artists", "A-B-D-U-L", "A-1000-Days-Gone", "--data_collector_type", "LYRICS_COM_DATA_COLLECTOR", "--data_storage_type", "DATA_STORAGE_CSV"],
+            "console": "integratedTerminal"
+        },
+		{
+            "name": "Python: No data storage type specified",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["--artists", "A-B-D-U-L", "A-1000-Days-Gone", "--data_collector_type", "LYRICS_COM_DATA_COLLECTOR"],
+            "console": "integratedTerminal"
+        },
+		{
+            "name": "Python: No data collector type provided",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["--artists", "A-B-D-U-L", "A-1000-Days-Gone"],
+            "console": "integratedTerminal"
+        },
+		{
+            "name": "Python: No artists provided",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [],
+            "console": "integratedTerminal"
+        }
+	]
+}
