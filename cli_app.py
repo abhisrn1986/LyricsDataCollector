@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     storage_config_params = {}
     if args.data_storage_config is not None:
-        storage_config_params = json.loads(args.data_storage_config)
+        storage_config_params = dict(args.data_storage_config)
     storage = create_storage(
         DataStorageType[args.data_storage_type],
         **storage_config_params)
@@ -26,4 +26,4 @@ if __name__ == "__main__":
 
     logger.info(f"Collecting lyrics data for {args.artists}.....")
     data_collector.collect_lyrics_data(args.artists)
-    logger.info(f"Collection of lyrics data for {args.artists}")
+    logger.info(f"Collected of lyrics data for {args.artists}")
