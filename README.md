@@ -31,3 +31,4 @@ $ python cli_app.py --artists A-B-D-U-L A-1000-Days-Gone --data_collector_type L
 - Different data storages can be added easily.
 - This frame work can extended to inlcude a model classes and easily extend this data pipeline to include model traning and deployment.
 - Improve the cli api for even better readability and robustness.
+- Docstrings needs to added for better code documentation but the code should be self explainatory.
