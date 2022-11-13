@@ -12,18 +12,17 @@ class DataStorageType(Enum):
 
 
 def create_storage(
-        storage_type: DataStorageType = DataStorageType.DATA_STORAGE_CSV, **
-        storage_args) -> LyricsStorage:
+        storage_type: DataStorageType, **storage_config_args) -> LyricsStorage:
 
-	if (storage_type == DataStorageType.DATA_STORAGE_CSV):
-		data_dir_arg = 'data_folder'
-		if data_dir_arg in storage_args:
-			logging.info(
-			    f"Created an instance of {LyricsStorageCSV.__class__} with {storage_args[data_dir_arg]}")
+	data_dir_arg_key = 'data_dir'
+	if ((storage_type == DataStorageType.DATA_STORAGE_CSV) and
+            (data_dir_arg_key in storage_config_args) and
+                (storage_config_args[data_dir_arg_key] != 'data')):
+		logging.info(
+				f"Created an instance of {LyricsStorageCSV.__class__} with {storage_config_args['data_dir']}")
+		return LyricsStorageCSV(storage_config_args['data_dir'])
 
-			return LyricsStorageCSV(storage_type[data_dir_arg])
-
-	default_data_dir = 'data'
+	storage_config_args['data_dir'] = 'data'
 	logging.info(
-	    f"Created a default instance of {LyricsStorageCSV.__class__} with {default_data_dir}")
-	return LyricsStorageCSV(default_data_dir)
+		f"Created an instance of {LyricsStorageCSV.__class__} with {storage_config_args['data_dir']}")
+	return LyricsStorageCSV(storage_config_args['data_dir'])
