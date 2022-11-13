@@ -1,5 +1,5 @@
-from lyrics_storage import LyricsStorage, SONG_NAME_LABEL, LYRICS_COL_LABEL, SONG_LINK_COL_LABEL
-from lyrics_data_collector import LyricsDataCollector
+from storages.lyrics_storage import LyricsStorage, SONG_NAME_LABEL, LYRICS_COL_LABEL, SONG_LINK_COL_LABEL
+from collectors.lyrics_data_collector import LyricsDataCollector
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd

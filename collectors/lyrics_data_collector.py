@@ -1,6 +1,6 @@
 import abc
 
-from lyrics_storage import LyricsStorage
+from storages.lyrics_storage import LyricsStorage
 
 class LyricsDataCollector(metaclass=abc.ABCMeta):
 
