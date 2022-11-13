@@ -1,20 +1,13 @@
-# from xml.parsers.expat import model
-import re
-import os.path
-from os import mkdir
-import logging
-
 import json
-from cli_arguments import get_cli_args
 
+import custom_logger
+from cli_arguments import get_cli_args
 from collectors.factory_methods import create_collector, DataCollectorType
 from storages.factory_methods import create_storage, DataStorageType
 
-# Initialize the data folder to store the model and lyrics files
-dir_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+logger = custom_logger.get_custom_named_logger(__name__)
 
-# specify the logging level
-logging.basicConfig(encoding='utf-8', level=logging.INFO)
+
 
 if __name__ == "__main__":
 
@@ -31,6 +24,6 @@ if __name__ == "__main__":
     data_collector = create_collector(
         storage, DataCollectorType[args.data_collector_type])
 
-    logging.info(f"Collecting lyrics data for {args.artists}")
+    logger.info(f"Collecting lyrics data for {args.artists}.....")
     data_collector.collect_lyrics_data(args.artists)
-    logging.info(f"Collection of lyrics data for {args.artists}")
+    logger.info(f"Collection of lyrics data for {args.artists}")

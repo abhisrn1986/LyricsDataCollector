@@ -1,10 +1,9 @@
-import pandas as pd
-import abc
-import os
-import re
 import logging
-logging.basicConfig(level=logging.WARN)
+import abc
 
+import pandas as pd
+
+logger = logging.getLogger(__name__)
 
 SONG_NAME_LABEL = 'song_title'
 LYRICS_COL_LABEL = 'lyrics'

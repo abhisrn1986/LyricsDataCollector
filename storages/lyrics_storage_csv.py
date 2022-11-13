@@ -1,10 +1,12 @@
+import logging
 import re
 import os
-import logging
 
 import pandas as pd
 
 from storages.lyrics_storage import LyricsStorage, TARGET_LABEL, SONG_NAME_LABEL
+
+logger = logging.getLogger(__name__)
 
 
 class LyricsStorageCSV(LyricsStorage):
@@ -64,7 +66,7 @@ class LyricsStorageCSV(LyricsStorage):
                 self.lyrics_data_dir, artist_name+'.csv')
 
             if not os.path.exists(artist_filepath):
-                logging.warn(
+                logger.warn(
                     f'Data for artist {artist_name} is not found in the storage')
                 continue
 
