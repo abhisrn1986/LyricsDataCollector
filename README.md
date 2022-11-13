@@ -12,6 +12,7 @@ An example for collecting artists lyrics from lyrics.com and storing it in seper
 ```
   $ python cli_app.py --artists Linkin-Park Imagine-Dragons
 ```
+* Beware that Python 3.9 is needed for used type hints to work otherwise the code might give an type object not subscriptable error.
 
 ## Comprehensive Instructions
 
