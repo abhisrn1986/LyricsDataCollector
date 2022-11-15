@@ -8,14 +8,13 @@ from storages.factory_methods import create_storage, DataStorageType
 logger = custom_logger.get_custom_named_logger(__name__)
 
 
-
 if __name__ == "__main__":
 
     # Process and get the cli arguments.
     args = get_cli_args()
 
     # Create a storage type.
-    storage_config_params = {} # parameters for the data storage used.
+    storage_config_params = {}  # parameters for the data storage used.
     if args.data_storage_config is not None:
         storage_config_params = dict(args.data_storage_config)
     storage = create_storage(

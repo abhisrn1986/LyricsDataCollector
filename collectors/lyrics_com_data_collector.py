@@ -24,6 +24,17 @@ class AtomicTqdm(tqdm):
             super().update(n)
 
 
+def update_tqdm(func):
+
+    def tqdm_func(*args, **kwargs):
+        func(*args)
+        # still needs to check the threading locking issue
+        # to uncomment this.
+        # kwargs['progress'].update(n=1)
+
+    return tqdm_func
+
+
 class LyricsComDataCollector(LyricsDataCollector):
 
     @classmethod
@@ -48,11 +59,11 @@ class LyricsComDataCollector(LyricsDataCollector):
     def collect_lyrics_data(self, artist_names: list[str] = None):
         # Extract the songs to data frames if there is a csv file else
         # web scrape the songs from the lyrics.com
-        # artists_dfs = []
-        # progress_bar = tqdm(total=len(artist_names),
-        # 					desc="Dowloading artist " + artists[0])
-        # n_artists = len(artist_names)
+        progress_bar = tqdm(total=len(artist_names),
+                            desc=f"Collecting artists lyrics")
         for i, artist in enumerate(artist_names):
+
+            progress_bar.desc = f"Collected artist {artist_names[i]} lyrics"
 
             songs_df = self.get_songs(artist)
             songs_to_extract = self.lyrics_storage.get_unstored_song_names(
@@ -64,33 +75,14 @@ class LyricsComDataCollector(LyricsDataCollector):
 
             self.lyrics_storage.store_artist_lyrics(artist, songs_df)
 
-            # artist_filename = re.sub('[ -]{1}', "_", artist).lower() + '.csv'
-            # artist_filepath = songs_folder + artist_filename
-            # if os.path.exists(artist_filepath) and not redownload:
-            # 	artists_dfs.append(pd.read_csv(artist_filepath))
-            # else:
-            # 	artists_dfs.append(extract_artist_songs(
-            # 		re.sub('[ _]{1}', "-", artist).lower(), parser_for_soup))
-            # 	artists_dfs[-1].to_csv(artist_filepath)
-
-            # if i < n_artists - 1:
-            # 	progress_bar.desc = "Dowloading artist " + artists[i+1]
-            # progress_bar.update(n=1)
-
-        # return artists_dfs
+            progress_bar.update(n=1)
 
     def get_lyrics_storage(self) -> LyricsStorage:
         return self.lyrics_storage
 
     @classmethod
+    @update_tqdm
     def extract_lyrics_from_url(cls, songs, i):
-
-        # if not hasattr(extract_lyrics_from_url.atomic_tqdm):
-        #     extract_lyrics_from_url.atomic_tqdm = AtomicTqdm(total=urls_length)
-        # else :
-        #     extract_lyrics_from_url.atomic_tqdm = AtomicTqdm(total=urls_length)
-
-        # print("Extrating from ", url)
         try:
             soup = BeautifulSoup(requests.get(
                 cls.source_url()).text, cls.parser_for_soup())
@@ -141,9 +133,12 @@ class LyricsComDataCollector(LyricsDataCollector):
 
         # Create a thread for extracting each song of the current artist
         threads = []
+        # atomic_tqdm = AtomicTqdm(total=len(all_lyrics), desc=f"Collecting artists lyrics")
+        # kwargs={'progress': atomic_tqdm}
         for index, url in enumerate(songs_df[SONG_LINK_COL_LABEL].values):
             t = threading.Thread(target=self.extract_lyrics_from_url,
                                  args=[all_lyrics, index])
+            #  args=[all_lyrics, index], kwargs=kwargs)
             t.start()
             threads.append(t)
 

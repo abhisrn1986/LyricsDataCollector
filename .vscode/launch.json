@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args": ["--artists", "A-B-D-U-L", "A-1000-Days-Gone", "--data_collector_type", "LYRICS_COM_DATA_COLLECTOR", "--data_storage_type", "DATA_STORAGE_CSV", "--data_storage_config", "data_dir,data3 "],
+            "args": ["--artists", "A-B-D-U-L", "A-1000-Days-Gone", "A-B-Veejay", "--data_collector_type", "LYRICS_COM_DATA_COLLECTOR", "--data_storage_type", "DATA_STORAGE_CSV", "--data_storage_config", "data_dir,data3 "],
             "console": "integratedTerminal"
         },
 		{
