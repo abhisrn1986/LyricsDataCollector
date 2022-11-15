@@ -59,11 +59,10 @@ class LyricsComDataCollector(LyricsDataCollector):
     def collect_lyrics_data(self, artist_names: list[str] = None):
         # Extract the songs to data frames if there is a csv file else
         # web scrape the songs from the lyrics.com
-        progress_bar = tqdm(total=len(artist_names),
-                            desc=f"Collecting artists lyrics")
+        n_artists = len(artist_names)
+        progress_bar = tqdm(total=n_artists,
+                            desc=f"Collecting artist {artist_names[0]} lyrics")
         for i, artist in enumerate(artist_names):
-
-            progress_bar.desc = f"Collected artist {artist_names[i]} lyrics"
 
             songs_df = self.get_songs(artist)
             songs_to_extract = self.lyrics_storage.get_unstored_song_names(
@@ -75,7 +74,11 @@ class LyricsComDataCollector(LyricsDataCollector):
 
             self.lyrics_storage.store_artist_lyrics(artist, songs_df)
 
+            progress_bar.desc = (
+                f"Collecting artist {artist_names[i+1]} lyrics"
+                if i < n_artists - 1 else "Collected all artists lyrics")
             progress_bar.update(n=1)
+            
 
     def get_lyrics_storage(self) -> LyricsStorage:
         return self.lyrics_storage
